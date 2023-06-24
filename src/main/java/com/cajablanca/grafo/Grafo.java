@@ -222,8 +222,8 @@ public class Grafo {
 	 * @param vertice
 	 * @return La componente a la que pertenece el vértice
 	 */
-	public String BFS(int vertice) {
-		if (!this.listAdy.containsKey(vertice)) {
+	public String BFS(int vertice) {//A
+		if (!this.listAdy.containsKey(vertice)) {//B
 			throw new NoSuchElementException("No existe ese vertice en el grafo");
 		}
 		Queue<Integer> queue = new LinkedList<Integer>();
@@ -233,22 +233,22 @@ public class Grafo {
 		initVisitados();
 		String components = "[";
 		queue.add(vertice);
-		this.visitados[vertice] = true;
-		while (!queue.isEmpty()) {
+		this.visitados[vertice] = true;//C
+		while (!queue.isEmpty()) {//D
 			int current = queue.remove();
 			components += current + " ";
-			List<Arco> listaAdy = this.listAdy.get(current);
-			for (Arco arco : listaAdy) {
-				if (!this.visitados[arco.getDestino()]) {
+			List<Arco> listaAdy = this.listAdy.get(current);//E
+			for (Arco arco : listaAdy) {//F
+				if (!this.visitados[arco.getDestino()]) {//G
 					queue.add(arco.getDestino());
-					this.visitados[arco.getDestino()] = true;
+					this.visitados[arco.getDestino()] = true;//H
 				} // end if
 			} // end for
 		} // end while
 		components = components.substring(0, components.length() - 1) + "]";
 
-		return components;
-	}
+		return components;//I
+	}//J
 
 	private List<Arco> copiaListaArcos() {
 		List<Arco> lista = new ArrayList<Arco>();
@@ -259,39 +259,39 @@ public class Grafo {
 	}
 
 	public Grafo kruskal() {
-		Grafo g = new Grafo();
-		for(Arco a : this.listaArcos) {
-			g.addVertice(a.getOrigen());
+		Grafo g = new Grafo();//A
+		for(Arco a : this.listaArcos) {//B
+			g.addVertice(a.getOrigen());//C
 		}
 		List<Arco> lista = this.copiaListaArcos();
-		int numArcos = 0;
-		while (numArcos < this.numVertices()-1) {
+		int numArcos = 0;//D
+		while (numArcos < this.numVertices()-1) {//E
 			Arco menor = new Arco(1, 1, Integer.MAX_VALUE);
-			int pos = -1;
-			for (int i = 0; i < lista.size(); i++) {
+			int pos = -1;//F
+			for (int i = 0; i < lista.size(); i++) {//G
 				Arco arco = lista.get(i);
-				if (arco.getPeso() <= menor.getPeso()) {
+				if (arco.getPeso() <= menor.getPeso()) {//H
 					menor = arco;
-					pos = i;
+					pos = i;//I
 				}
 			}
-			if (pos != -1) {
-				int a = menor.getOrigen(), b = menor.getDestino();							
-				if(!g.existeVertice(a) || !g.existeVertice(b)) {
+			if (pos != -1) {//J
+				int a = menor.getOrigen(), b = menor.getDestino();						
+				if(!g.existeVertice(a) || !g.existeVertice(b)) {//K-L
 					g.addArco(menor);
-					numArcos++;
+					numArcos++;//O
 				}else {
 					g.BFS(a);
-					if (!g.verticeVisitado(b)) {
+					if (!g.verticeVisitado(b)) {//M
 						g.addArco(menor);
-						numArcos++;
+						numArcos++;//N
 					}
 
 				}				
-				lista.remove(pos);
+				lista.remove(pos);//P
 			}			
 		}
-		return g;
+		return g;//Q
 	}
 
 }
