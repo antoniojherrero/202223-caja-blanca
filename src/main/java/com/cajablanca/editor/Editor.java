@@ -142,18 +142,18 @@ public class Editor {
 		int numPalabras = 0;
 		int tamanio = this.size();
 		int i;
-		if (tamanio > 0) {
+		if (tamanio > 0) { //D
 			i = 1;
-			while (i <= tamanio) {
+			while (i <= tamanio) { //E
 				this.lista = getLinea(i);
-				for (String s : lista) {
+				for (String s : lista) { //G
 					if(s.length()>0)
 						numPalabras++;
 				}
-				i++;
+				i++; //I
 			}
 		}
-		return numPalabras;
+		return numPalabras; //F
 	}
 
 	/**
@@ -163,20 +163,20 @@ public class Editor {
 	 */
 	public String palabraMasLarga() throws EmptyCollectionException {
 		String mayor = null;
-		if (this.editor.size() > 0) {
-			for (int i = 1; i <= this.editor.size(); i++) {
+		if (this.editor.size() > 0) {//B
+			for (int i = 1; i <= this.editor.size(); i++) {//C
 				this.lista = this.editor.getAtPos(i);
-				for (int pos = 1; pos <= this.lista.size(); pos++) {
+				for (int pos = 1; pos <= this.lista.size(); pos++) {//D
 					String cadena = this.lista.getAtPos(pos);
-					if (mayor == null) {
-						mayor = cadena;
-					} else if (cadena.length() > mayor.length()) {
-						mayor = cadena;
+					if (mayor == null) {//E
+						mayor = cadena;//F
+					} else if (cadena.length() > mayor.length()) {//G
+						mayor = cadena;//H
 					}
 				}
 			}
 		}
-		return mayor;
+		return mayor;//I
 	}
 
 	
@@ -184,19 +184,19 @@ public class Editor {
 		boolean encontrada = false;
 		int tamanio = this.editor.size();
 		int j;
-		if (tamanio > 0) {
-			for(int i=1; i<=tamanio; i++) {
+		if (tamanio > 0) { //B
+			for(int i=1; i<=tamanio; i++) {//C
 				this.lista = this.editor.getAtPos(i);
 				j=1;				
-				while (j<=this.lista.size()) {
-					if (this.lista.getAtPos(j).equals(palabra)) {
+				while (j<=this.lista.size()) { //E
+					if (this.lista.getAtPos(j).equals(palabra)) {//F
 						return true;
 					}
 					j++;
 				}
 			}
 		}
-		return encontrada;
+		return encontrada; //I
 	}
 	
 	/**
@@ -204,26 +204,26 @@ public class Editor {
 	 * @param nuevaPalabra Sustituye palabra por nuevapalabra a lo largo de todo el texto
 	 */
 	public void sustituirPalabra(String palabra, String nuevaPalabra) {
-		if (this.editor.size() > 0) {
+		if (this.editor.size() > 0) {//B
 			AbstractSingleLinkedListImpl<AbstractSingleLinkedListImpl<String>> nuevoEditor = 
 					new SingleLinkedListImpl<AbstractSingleLinkedListImpl<String>>();
 			int i=1;
-			do {
+			do { //D
 				AbstractSingleLinkedListImpl<String> aux = new SingleLinkedListImpl<String>();
 				this.lista = this.editor.getAtPos(i);
 				int j=1;
-				while (j<=this.lista.size()) {
-					if (this.lista.getAtPos(j).equals(palabra)) {
-						aux.addLast(nuevaPalabra);
+				while (j<=this.lista.size()) {//E
+					if (this.lista.getAtPos(j).equals(palabra)) {//F
+						aux.addLast(nuevaPalabra);//H
 					}else {
-						aux.addLast(this.lista.getAtPos(j));
+						aux.addLast(this.lista.getAtPos(j));//I
 					}
-					j++;
+					j++;//J
 				}
 				nuevoEditor.addLast(aux);
 				i++;
-			}while (i<=this.editor.size());
-			editor = nuevoEditor;
-		}
+			}while (i<=this.editor.size());//G
+			editor = nuevoEditor;//K
+		}//L
 	}
 }

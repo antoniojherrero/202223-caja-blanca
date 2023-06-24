@@ -15,7 +15,7 @@ import java.util.TreeMap;
 
 import com.cajanegra.SingleLinkedListImpl;
 
-class Grafo {
+public class Grafo {
 
 	private Map<Integer, List<Arco>> listAdy;
 	private List<Arco> listaArcos;
@@ -154,7 +154,7 @@ class Grafo {
 		}
 	}
 
-	private boolean todosVisitados() {
+	public boolean todosVisitados() {
 		for (Integer clave : this.listAdy.keySet()) {
 			if (this.visitados[clave] == false) {
 				return false;
@@ -171,49 +171,49 @@ class Grafo {
 		System.out.println("]");
 	}
 
-	public void printListaAdyacentes(int v) {
+	public void printListaAdyacentes(int v) {//A
 		List<Arco> listaAdy = this.listAdy.get(v);
 		System.out.print("Adyacentes de " + v + ": ");
-		for (Arco arco : listaAdy) {
-			System.out.print(arco.getDestino() + " ");
+		for (Arco arco : listaAdy) {//C
+			System.out.print(arco.getDestino() + " ");//D
 		}
-		System.out.println();
+		System.out.println();//E
+		
 	}
-
-	public String componentsRelated() {
+	public String componentsRelated() {//A
 		Queue<Integer> queue = new LinkedList<Integer>();
 		int nVert;
 		nVert = this.listAdy.size();
 		this.visitados = new boolean[nVert + 1];
 		initVisitados();
-		String components = "";
-		while (!todosVisitados()) {
+		String components = "";//B
+		while (!todosVisitados()) {//C
 			int i = primerVertice();
-			boolean found = false;
-			while (i < this.visitados.length && !found) {
-				if (!this.visitados[i]) {
+			boolean found = false;//D
+			while (i < this.visitados.length && !found) {//E
+				if (!this.visitados[i]) {//F
 					queue.add(i);
 					this.visitados[i] = true;
 					found = true;
-					components += "[";
+					components += "[";//G
 				} else
-					i++;
+					i++;//H
 			}
-			while (!queue.isEmpty()) {
+			while (!queue.isEmpty()) {//I
 				int current = queue.remove();
 				components += current + " ";
 				List<Arco> listaAdy = this.listAdy.get(current);
-				printListaAdyacentes(current);
-				for (Arco arco : listaAdy) {
-					if (!this.visitados[arco.getDestino()]) {
+				printListaAdyacentes(current);//J
+				for (Arco arco : listaAdy) {//K
+					if (!this.visitados[arco.getDestino()]) {//L
 						queue.add(arco.getDestino());
-						this.visitados[arco.getDestino()] = true;
+						this.visitados[arco.getDestino()] = true;//M
 					} // end if
 				} // end for
 			} // end while
-			components = components.substring(0, components.length() - 1) + "]";
+			components = components.substring(0, components.length() - 1) + "]";//N
 		}
-		return components;
+		return components;//O
 	}
 
 	/**
